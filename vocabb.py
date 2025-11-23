@@ -644,7 +644,7 @@ def main():
     register_handlers(application)
     print("🤖 Bot ishga tushdi...")
 
-    flask_thread = threading.Thread(target=run_flask, daemon=Ture)
+    flask_thread = threading.Thread(target=run_flask, daemon=True)
     flask_thread.start()
 
     application.run_polling()
