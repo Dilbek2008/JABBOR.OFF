@@ -1,0 +1,32 @@
+# render.yaml
+services:
+  - type: web
+    name: vocabulary-telegram-bot
+    env: python
+    plan: free
+    region: frankfurt  # yoki singapore, oregon
+    branch: main
+    
+    # Build commands
+    buildCommand: |-
+      pip install --upgrade pip
+      pip install -r requirements.txt
+      
+    # Start command
+    startCommand: python vocabb.py
+    
+    # Environment variables
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: ADMIN_CHAT_ID
+        value: "8434034699"
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+
+    # Health check path
+    healthCheckPath: /
+    initialDelay: 30
+
+    # Auto-deploy
+    autoDeploy: true
