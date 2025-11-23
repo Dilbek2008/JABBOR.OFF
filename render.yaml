@@ -4,7 +4,7 @@ services:
     name: vocabulary-telegram-bot
     env: python
     plan: free
-    region: frankfurt  # yoki singapore, oregon
+    region: frankfurt
     branch: main
     
     # Build commands
@@ -24,9 +24,5 @@ services:
       - key: PYTHON_VERSION
         value: "3.11.0"
 
-    # Health check path
+    # Health check (to'g'ri sintaksis)
     healthCheckPath: /
-    initialDelay: 30
-
-    # Auto-deploy
-    autoDeploy: true
