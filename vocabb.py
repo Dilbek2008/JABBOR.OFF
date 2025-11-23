@@ -3,10 +3,20 @@ import asyncio
 import logging
 import sqlite3
 import random
+import threading
+from flask import Flask
 from datetime import datetime, timedelta
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, MessageHandler, filters, ContextTypes
 
+app = Flask(__name__)
+@app.route('/')
+def home():
+    return "Vocabluary bot ishladi"
+
+@app.route('/')
+def health():
+    return "OK",200
 # Import vocabulary
 from dailywords import VOCABULARY_BY_DAY, ALL_VOCABULARY
 
@@ -633,7 +643,18 @@ def main():
     application = Application.builder().token(BOT_TOKEN).build()
     register_handlers(application)
     print("🤖 Bot ishga tushdi...")
+
+    flask_thread = threading.Thread(target=run_flask, daemon=Ture)
+    flask_thread.start()
+
     application.run_polling()
+
+
+def run_flask():
+    port = int(os.environ.get('PORT', 500))
+    app.run(host='0.0.0.0', port=port, debug=Flask, use_reload=Flask)
+
+
 
 if __name__ == "__main__":
     main()
